@@ -9,7 +9,6 @@ def dfs(graph, source, visited=None):
         if neighbor not in visited:
             dfs(graph, neighbor, visited)
 
-# Get user input for the graph
 graph = {}
 num_nodes = int(input("Enter the number of nodes: "))
 
@@ -18,7 +17,6 @@ for _ in range(num_nodes):
     neighbors = input(f"Enter the neighbors of {node} (space-separated): ").split()
     graph[node] = neighbors
 
-# Get user input for the source node
 source = input("Enter the source node: ")
 
 print("\nSource node", source, "using DFS:")

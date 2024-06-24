@@ -3,7 +3,7 @@ import heapq
 def prims(graph, start):
     mst = []
     visited = set()
-    min_heap = [(0, start, None)]  # (weight, vertex, parent)
+    min_heap = [(0, start, None)] 
 
     while min_heap:
         weight, current, parent = heapq.heappop(min_heap)
@@ -17,7 +17,6 @@ def prims(graph, start):
     
     return mst
 
-# Get user input for the graph
 graph = {}
 num_edges = int(input("Enter the number of edges: "))
 
@@ -31,13 +30,10 @@ for _ in range(num_edges):
     graph[u][v] = w
     graph[v][u] = w
 
-# Get user input for the start node
 start = input("Enter the start node: ")
 
-# Find the MST using Prim's algorithm
 mst = prims(graph, start)
 
-# Print the MST
 print("\nMinimum Spanning Tree:")
 for u, v, weight in mst:
     print(f"{u} - {v}: {weight}")

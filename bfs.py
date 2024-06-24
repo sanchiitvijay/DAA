@@ -11,7 +11,6 @@ def bfs(graph, source):
                 if neighbor not in visited and neighbor not in queue:
                     queue.append(neighbor)
 
-# Get user input for the graph
 graph = {}
 num_nodes = int(input("Enter the number of nodes: "))
 
@@ -20,7 +19,6 @@ for _ in range(num_nodes):
     neighbors = input(f"Enter the neighbors of {node} (space-separated): ").split()
     graph[node] = neighbors
 
-# Get user input for the source node
 source = input("Enter the source node: ")
 
 print("\nSource node", source, "using BFS:")

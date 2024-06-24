@@ -1,23 +1,20 @@
 def gale_shapley(men_preferences, women_preferences):
-    # Number of men and women
     num_people = len(men_preferences)
     
-    # Initialize all men and women as free
     free_men = list(range(num_people))
     women_partner = [-1] * num_people
     men_partner = [-1] * num_people
     proposals = [0] * num_people
     
-    # While there are free men who haven't proposed to every woman
     while free_men:
         man = free_men.pop(0)
         woman = men_preferences[man][proposals[man]]
         proposals[man] += 1
         
-        if women_partner[woman] == -1:  # Woman is free
+        if women_partner[woman] == -1:
             women_partner[woman] = man
             men_partner[man] = woman
-        else:  # Woman is currently engaged
+        else:
             current_partner = women_partner[woman]
             woman_preference = women_preferences[woman]
             if woman_preference.index(man) < woman_preference.index(current_partner):
@@ -29,7 +26,6 @@ def gale_shapley(men_preferences, women_preferences):
     
     return men_partner
 
-# Get user input for preferences
 num_people = int(input("Enter the number of men and women: "))
 
 men_preferences = []
@@ -45,10 +41,8 @@ for i in range(num_people):
     preferences = list(map(int, input(f"Woman {i+1}'s preferences: ").split()))
     women_preferences.append(preferences)
 
-# Find the stable matchings
 matches = gale_shapley(men_preferences, women_preferences)
 
-# Print the stable matchings
 print("Stable matchings (man -> woman):")
 for man, woman in enumerate(matches):
     print(f"Man {man+1} is matched to Woman {woman+1}")
