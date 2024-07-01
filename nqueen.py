@@ -1,45 +1,33 @@
-def printSolution(board):
-    for i in range(N):
-        for j in range(N):
-            print(board[i][j], end=" ")
-        print()
 
-def isSafe(board, row, col):
-    if ld[row - col + N - 1] != 1 and rd[row + col] != 1 and cl[row] != 1:
-        return True
-    return False
+def totalNQueens(n):
+    def addans(board,ans):
+        temp=[]
+        for row in board:
+            for j in range(len(row)):
+                if row[j]=="Q":
+                    temp.append(j+1)
+        ans.append(temp)
+    def solve(col,board,low,upper,lower,ans,n):
+        if col==n:
+            addans(board,ans)
+            return 
+        for row in range(n):
+            if low[row]==0 and upper[n-1+col-row]==0 and lower[row+col]==0:
+                board[row][col]="Q"
+                low[row]=1
+                upper[n-1+col-row]=1
+                lower[row+col]=1
+                solve(col+1,board,low,upper,lower,ans,n)
+                low[row]=0
+                upper[n-1+col-row]=0
+                lower[row+col]=0
+    ans=[]        
+    board=[[0]*n for i in range(n)]
+    low=[0]*n
+    upper=[0]*(2*n-1)
+    lower=[0]*(2*n-1)
+    solve(0,board,low,upper,lower,ans,n)
+    return len(ans)
 
-def solveNQUtil(board, col):
-    if col >= N:
-        return True
-    
-    for i in range(N):
-        if isSafe(board, i, col):
-            board[i][col] = 1
-            ld[i - col + N - 1] = rd[i + col] = cl[i] = 1
-            
-            if solveNQUtil(board, col + 1):
-                return True
-            
-            board[i][col] = 0
-            ld[i - col + N - 1] = rd[i + col] = cl[i] = 0
-    
-    return False
-
-def solveNQ():
-    board = [[0]*N for _ in range(N)]
-    
-    if not solveNQUtil(board, 0):
-        print("Solution does not exist")
-        return False
-    
-    printSolution(board)
-    return True
-
-N = int(input())
-
-ld = [0] * (2 * N - 1)
-rd = [0] * (2 * N - 1)
-cl = [0] * N
-
-solveNQ()
+n = int(input("Enter number: "))
+print(totalNQueens(n))
