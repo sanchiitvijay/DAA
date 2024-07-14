@@ -1,9 +1,3 @@
-def create_graph(vertices):
-    return {'vertices': vertices, 'edges': []}
-
-def add_edge(graph, u, v, w):
-    graph['edges'].append((w, u, v))
-
 def find(parent, i):
     if parent[i] == i:
         return i
@@ -26,10 +20,8 @@ def kruskal_mst(graph):
     parent = []
     rank = []
 
-    # Sort edges by weight
     edges = sorted(graph['edges'])
 
-    # Initialize parent and rank
     for node in range(graph['vertices']):
         parent.append(node)
         rank.append(0)
@@ -53,14 +45,14 @@ def kruskal_mst(graph):
 
 vertices = int(input("Enter the number of vertices: "))
 
-graph = create_graph(vertices)
+graph = {'vertices': vertices, 'edges': []}
 
 while True:
     edge_input = input("Enter an edge (u v w) or 'done' to finish: ")
     if edge_input.lower() == 'done':
         break
     u, v, w = map(int, edge_input.split())
-    add_edge(graph, u, v, w)
+    graph['edges'].append((w, u, v))
 
 mst = kruskal_mst(graph)
 print("\nMinimum Spanning Tree:")
