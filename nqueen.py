@@ -1,33 +1,44 @@
-def addans(board,ans):
-    temp = []
-    for row in board:
-        for j in range(len(row)):
-            if row[j] == "Q":
-                temp.append(j+1)
-    ans.append(temp)
+def isSafe(arr, row, col, n):
+   
+    for i in range(col, n):
+        if arr[row][i]:
+            return False
+  
+    i, j = row, col
+    while i >= 0 and j < n:
+        if arr[i][j]:
+            return False
+        i -= 1
+        j += 1
 
+    i, j = row, col
+    while i < n and j < n:
+        if arr[i][j]:
+            return False
+        i += 1
+        j += 1
 
-def solve(col,board,low,upper,lower,ans,n):
-    if col == n:
-        addans(board,ans)
-        return 
-    for row in range(n):
-        if low[row] == 0 and upper[n-1+col-row] == 0 and lower[row+col] == 0:
-            board[row][col] = "Q"
-            low[row] = 1
-            upper[n-1+col-row] = 1
-            lower[row+col] = 1
-            solve(col+1,board,low,upper,lower,ans,n)
-            low[row] = 0
-            upper[n-1+col-row] = 0
-            lower[row+col] = 0
+    return True
 
+def nQueens(arr, n, column):
+    if column == -1:
+        return True
+    
+    for i in range(n):
+        if arr[i][column] == 0:
+            if isSafe(arr, i, column, n):
+                arr[i][column] = 1
+                if nQueens(arr, n, column - 1):
+                    return True
+                arr[i][column] = 0  
+    
+    return False
 
-ans = []        
-n = int(input("Enter number: "))
-board = [[0]*n for i in range(n)]
-low = [0] * n
-upper = [0] * (2*n-1)
-lower = [0] * (2*n-1)
-solve(0,board,low,upper,lower,ans,n)
-print(len(ans))
+n = 4 
+arr = [[0] * n for _ in range(n)]
+
+if nQueens(arr, n, n -1):
+    for row in arr:
+        print(row)
+else:
+    print("No solution found")
