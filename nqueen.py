@@ -1,9 +1,7 @@
 def solveNQueens(n):
     def could_place(row, col):
         for i in range(row):
-            if board[i] == col or \
-                board[i] - i == col - row or \
-                board[i] + i == col + row:
+            if board[i] == col or board[i] - i == col - row or board[i] + i == col + row:
                 return False
         return True
     def place_queens(n, row):
