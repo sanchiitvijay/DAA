@@ -46,11 +46,10 @@ def kruskal_mst(graph):
 vertices = int(input("Enter the number of vertices: "))
 
 graph = {'vertices': vertices, 'edges': []}
+e = int(input("Enter the number of edges"))
 
-while True:
-    edge_input = input("Enter an edge (u v w) or 'done' to finish: ")
-    if edge_input.lower() == 'done':
-        break
+for _ in range(e):
+    edge_input = input("Enter an edge (u v w): ")
     u, v, w = map(int, edge_input.split())
     graph['edges'].append((w, u, v))
 
