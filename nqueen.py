@@ -1,44 +1,37 @@
-def isSafe(arr, row, col, n):
-   
-    for i in range(col, n):
-        if arr[row][i]:
-            return False
-  
-    i, j = row, col
-    while i >= 0 and j < n:
-        if arr[i][j]:
-            return False
-        i -= 1
-        j += 1
-
-    i, j = row, col
-    while i < n and j < n:
-        if arr[i][j]:
-            return False
-        i += 1
-        j += 1
-
-    return True
-
-def nQueens(arr, n, column):
-    if column == -1:
+def solveNQueens(n):
+    def could_place(row, col):
+        for i in range(row):
+            if board[i] == col or \
+                board[i] - i == col - row or \
+                board[i] + i == col + row:
+                return False
         return True
+    def place_queens(n, row):
+        if row == n:
+            result.append(board[:])
+            return
+        for col in range(n):
+            if could_place(row, col):
+                board[row] = col
+                place_queens(n, row + 1)
+                board[row] = 0
+    result = []
+    board = [0] * n
+    place_queens(n, 0)
     
-    for i in range(n):
-        if arr[i][column] == 0:
-            if isSafe(arr, i, column, n):
-                arr[i][column] = 1
-                if nQueens(arr, n, column - 1):
-                    return True
-                arr[i][column] = 0  
+    formatted_result = []
+    for solution in result:
+        formatted_board = []
+        for col in solution:
+            formatted_board.append("." * col + "q" + "." * (n - col - 1))
+        formatted_result.append(formatted_board)
     
-    return False
-
-n = 4 
-arr = [[0] * n for _ in range(n)]
-
-if nQueens(arr, n, n -1):
-    for row in arr:
+    return formatted_result
+    
+n = 4
+solutions = solveNQueens(n)
+for idx, solution in enumerate(solutions):
+    print(f"Solution {idx + 1}:")
+    for row in solution:
         print(row)
-else:
-    print("No solution found")
+    print()
