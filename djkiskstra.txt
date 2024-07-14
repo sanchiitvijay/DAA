@@ -1,0 +1,17 @@
+Function Dijkstras(graph, src, V):
+    shortest_path = array of size V, initialize all elements to infinity
+    initialize shortest_path[src] to 0
+    priority_queue = min-heap initialized with (0, src)
+    
+    while priority_queue is not empty:
+        (current_distance, u) = pop min element from priority_queue
+        
+        if current_distance > shortest_path[u]:
+            continue
+        
+        for (neighbor, weight) in graph[u]:
+            distance = current_distance + weight
+            
+            if distance < shortest_path[neighbor]:
+                shortest_path[neighbor] = distance
+                push (distance, neighbor) to the min-heap, priority_queue
