@@ -1,19 +1,5 @@
 import heapq
 
-def create_graph(vertices):
-    return [[] for _ in range(vertices)]
-
-def add_edge(adj_list, u, v, w):
-    adj_list[u].append((v, w))
-    adj_list[v].append((u, w))
-
-def display_graph(adj_list):
-    for i in range(len(adj_list)):
-        print(f"Vertex {i}:", end="")
-        for (j, weight) in adj_list[i]:
-            print(f" -> {j} (weight {weight})", end="")
-        print()
-
 def dijkstra(adj_list, start):
     vertices = len(adj_list)
     distances = [float('inf')] * vertices
@@ -33,19 +19,17 @@ def dijkstra(adj_list, start):
 
     return distances
 
-vertices = int(input("Enter the number of vertices: "))
 
-adj_list = create_graph(vertices)
+vertices = int(input("Enter the number of vertices: "))
+adj_list = [[] for _ in range(vertices)]
 
 while True:
     edge_input = input("Enter an edge (u v w) or 'done' to finish: ")
     if edge_input.lower() == 'done':
         break
     u, v, w = map(int, edge_input.split())
-    add_edge(adj_list, u, v, w)
-
-print("Graph:")
-display_graph(adj_list)
+    adj_list[u].append((v, w))
+    adj_list[v].append((u, w))
 
 start_node = int(input("Enter the start node: "))
 
