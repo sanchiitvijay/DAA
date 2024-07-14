@@ -12,10 +12,10 @@ def dijkstra(adj_list, start):
             continue
 
         for n, d in adj_list[current_vertex]:
-            distance = current_distance + d
-            if distance < distances[n]:
-                distances[n] = distance
-                heapq.heappush(min_heap, (distance, n))
+            dist = current_distance + d
+            if dist < distances[n]:
+                distances[n] = dist
+                heapq.heappush(min_heap, (dist, n))
 
     return distances
 
