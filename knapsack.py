@@ -1,20 +1,39 @@
-def knapsack(val, weight, wt, n):
-    K = [[0 for x in range(weight + 1)] for x in range(n + 1)]
-
-    for i in range(n + 1):
-        for w in range(weight + 1):
-            if i == 0 or w == 0:
-                K[i][w] = 0
-            elif wt[i-1] <= w:
-                K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]] , K[i-1][w])
-            else:
-                K[i][w] = K[i-1][w]
-
-    return K[n][weight]
+def KnapSack():
+  M = [[0]*(W+1) for _ in range(n+1)]
+  for i in range(1,n+1):
+    for w in range(1,W+1):
+      if weights[i] > w:
+        M[i][w] = M[i-1][w]
+      else:
+        M[i][w] = max(M[i-1][w], values[i]+M[i-1][w-weights[i]])
+  return M
 
 
-n = int(input("Enter the number of values: "))
-value = list(map(int, input("Enter profits: ").split()))
-wt = list(map(int, input("Enter weights: ").split()))
-sum = int(input("Enter the max weight u want: "))
-print(ks(value, sum, wt, n))
+# Use this function in case external asked to show the items included in the knapsack
+def FindSolution(M):
+  i,w = n,W
+  included = []
+  while i:
+    if weights[i]<=w and values[i]+M[i-1][w-weights[i]] > M[i-1][w]:
+      included.append((weights[i],values[i]))
+      w -= weights[i]
+    i -= 1
+  return included
+
+n = int(input("Enter the no. of elements : "))
+weights = [0]*(n+1)
+values = [0]*(n+1)
+for i in range(1,n+1):
+  weights[i],values[i] = map(int,input(f"{i} : ").split())
+
+W = int(input("Enter maximum capacity : "))
+M = KnapSack()
+print("Maximum value obtainable is : ",M[n][W])
+print(FindSolution(M))
+
+# Enter the no. of elements : 4
+# 1 : 3 10
+# 2 : 5 4
+# 3 : 6 9
+# 4 : 2 11
+# Enter maximum capacity : 9

@@ -1,0 +1,11 @@
+for i <- 1 to N do
+    for j<- 1 to capacity do 
+        if items[i].weight <= j then 
+            dp[i][j] = max( dp[i-1][j] , items[i].weight + dp[i-1][j - items[i].weight] )
+        else 
+            dp[i][j] = dp[i-1][j]
+        end if 
+    end for 
+end for 
+
+return dp[N][capacity]

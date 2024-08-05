@@ -1,0 +1,11 @@
+  FindSolution(j):
+    If j = 0 then
+      Output nothing
+    Else
+      If v(j) + M[p(j)] is strictly greater than M[j-1] then
+        Output j
+        Recursively call FindSolution(p(j))
+      Else
+        Recursively call FindSolution(j-1)
+      End If
+    End If

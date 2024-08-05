@@ -1,0 +1,14 @@
+BFS(s):
+  Mark s as "Visited"
+  Initialze R = {s}
+  Define Layer L(0) = {s}
+  While L(i) is not empty
+    For each node u in L(i)
+      Consider every edge (u,v) incident on u
+        If v is not marked "Visited" then
+          Mark v as "Visited"
+          Add v to R and layer L(i+1)
+        End If
+    End For
+  End While
+  Return the set of reachable nodes R

@@ -13,3 +13,29 @@ Function quickSort(array, low, high):
         Set pi to partition(array, low, high)
         quickSort(array, low, pi-1)
         quickSort(array, pi+1, high)
+
+
+2nd-----------
+
+QuickSort(L):
+  If the list has only one element then
+    It cannot be further sorted
+  Else
+    A, pivot, B = Partition(L)
+    A = QuickSort(A)
+    B = QuickSort(B)
+    L = A + pivot + B
+  End If
+  Return the sorted list L
+
+Partition(L):
+  Choose an arbitrary element of L as the pivot
+  Initialize to empty lists A and B
+  For every element m in list L
+    If m is less than pivot then
+      Append m to A
+    Else
+      Append m to B
+    End If
+  End For
+  return A, pivot, B

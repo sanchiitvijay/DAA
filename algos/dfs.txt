@@ -1,0 +1,7 @@
+DFS(u):
+  Mark 'u' as "Visited" and add it to R
+  For every edge (u,v) incident on u
+    If 'v' is not marked "Visited" then
+      Recursively call DFS(v)
+    End If
+  Enf For

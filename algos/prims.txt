@@ -1,0 +1,10 @@
+Prims():
+  Consider an arbitrary node 's' as source
+  Initialize MST = {}
+  Declare V = {s}
+  While all nodes are not in V
+    Select a node 'u' which is not in V but has an edge 'e' into V such that value of that edge is Minimum
+    Add node 'u' to V
+    Add the edge 'e' into MST
+  End While
+  return MST

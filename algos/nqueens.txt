@@ -1,0 +1,13 @@
+if row == len(board) then 
+    add board to answers or display.. 
+    return 
+
+for c: 1 to NumCols do 
+    if is_safe(board, row, c) then 
+        board[row][c] = 1 // place a queen 
+        nqueens(board, row+1) 
+        board[row][c] = 0 // backtract i.e remove queen  
+    end if 
+end for 
+
+end 

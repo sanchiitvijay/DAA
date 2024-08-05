@@ -1,0 +1,28 @@
+Count_Sort(list):
+  Initialize inv_count as 0
+  If the list has more than 1 elements then
+    Divide the list into two halves A and B
+    A, countA = Count_Sort(A)
+    B, countB = Count_Sort(B)
+    L, countL = Count_Merge(A,B)
+    Set the value of inv_count to countA + countB + countL
+  End If
+  Return L, inv_count
+
+Count_Merge(A,B):
+  Initialize an empty list L
+  Declare countL = 0
+  Maintain a current pointer to the first element for each list
+  While both lists are non-empty
+    Let ai and bj be the elements pointed to by the current pointers
+    If ai less than bj then
+      Append ai to L
+      Increment current pointer of list A
+    Else
+      Add the no. of remaining elements of list A to count
+      Append bj to L
+      Increment current poitner of list B
+    End If
+  End While
+  Once one list is empty, append the remainder of the other list to the output list L
+  Return L, countL
