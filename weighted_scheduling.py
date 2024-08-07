@@ -1,38 +1,56 @@
-def weighted_interval_scheduling(intervals):
-    intervals.sort(key=lambda x: x[1])
+def WeightedIntervalScheduling():
+  intervals.sort(key = lambda x: x[1])
+  n = len(intervals)
 
-    n = len(intervals)
-    dp = [0] * n
+  for i in range(1,n):
+    j = i-1
+    while intervals[j][1] >= intervals[i][0]:
+      j -= 1
+    P.append(j)
 
-    dp[0] = intervals[0][2] 
-    for i in range(1, n):
-        value_incl = intervals[i][2]
-        j = find_latest_non_overlapping(intervals, i)
-        if j != -1:
-            value_incl += dp[j]
+  M = [0]*n
+  for i in range(1,n):
+    M[i] = max(intervals[i][2]+M[P[i]], M[i-1])
 
-        value_excl = dp[i-1]
+  return M
 
-        dp[i] = max(value_incl, value_excl)
 
-    return dp[n-1]
+# if asked to print all the intervals included in the solution
+def FindSolution(M):
+  included = []
+  j = len(M)-1
+  while j:
+    if intervals[j][2] + M[P[j]] > M[j-1]:
+      included.append(intervals[j])
+      j = P[j]
+    else:
+      j -= 1
+  return included
 
-def find_latest_non_overlapping(intervals, current_index):
-    for j in range(current_index - 1, -1, -1):
-        if intervals[j][1] <= intervals[current_index][0]:
-            return j
-    return -1
 
-def input_intervals():
-    n = int(input("Enter the number of intervals: "))
-    intervals = []
-    for i in range(n):
-        start_time = int(input(f"Interval {i+1} start time: "))
-        end_time = int(input(f"Interval {i+1} end time: "))
-        value = int(input(f"Interval {i+1} value: "))
-        intervals.append((start_time, end_time, value))
-    return intervals
+intervals = [(-1,-1,-1)]
+print("Enter intervals :")
+while True:
+  interval = input()
+  if interval:
+    s,f,val = map(int,interval.split())
+    intervals.append((s,f,val))
+  else:
+    break
 
-intervals = input_intervals()
-max_value = weighted_interval_scheduling(intervals)
-print(f"Maximum value subset of intervals: {max_value}")
+P = [0]
+M = WeightedIntervalScheduling()
+print("Maximum value obtainable is :",M[-1])
+
+included = FindSolution(M)
+print("\nThe intervals included are : ")
+print("\n| Start | Finish | Value |")
+for s,f,val in included:
+  print("|%7d|%8d|%7d|"%(s,f,val))
+
+# 1 2 100
+# 2 5 200
+# 3 6 300
+# 4 8 400
+# 5 9 500
+# 6 10 100
